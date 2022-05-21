@@ -35,6 +35,43 @@
 # then splitting that string into parts using the colon character.
 # Once you have accumulated the counts for each hour, print out the counts, one per line, sorted by hour as shown below.
 
+# fname = input("Enter a file name: ")
+#
+# try:
+#     fhand = open(fname)
+# except:
+#     print("Error file name!")
+#     exit()
+#
+# hourDict = dict()
+#
+# for line in fhand:
+#     line = line.rstrip()
+#     line = line.split()
+#     if len(line) > 0 and line[0] == "From":
+#         time = line[5]
+#         time = time.split(":")
+#         hour = time[0]
+#         hourDict[hour] = hourDict.get(hour, 0) + 1
+#
+# hourList = list()
+#
+# for key in hourDict:
+#     hourList.append((key, hourDict[key]))
+#
+# hourList.sort()
+#
+# for a, b in hourList:
+#     print(a, b)
+
+# Exercise 3: Write a program that reads a file and prints the letters in decreasing order of frequency.
+# Your program should convert all the input to lower case and only count the letters a-z.
+# Your program should not count spaces, digits, punctuation, or anything other than the letters a-z.
+# Find text samples from several different languages and see how letter frequency varies between languages.
+# Compare your results with the tables at https://wikipedia.org/wiki/Letter_frequencies.
+
+import string
+
 fname = input("Enter a file name: ")
 
 try:
@@ -43,23 +80,16 @@ except:
     print("Error file name!")
     exit()
 
-hourDict = dict()
+letterDict = dict()
 
 for line in fhand:
-    line = line.rstrip()
-    line = line.split()
-    if len(line) > 0 and line[0] == "From":
-        time = line[5]
-        time = time.split(":")
-        hour = time[0]
-        hourDict[hour] = hourDict.get(hour, 0) + 1
+    line = line.strip()
+    line = line.lower()
+    if len(line) > 0:
+        for letter in line:
+            if letter.isalpha():
+                letterDict[letter] = letterDict.get(letter, 0) + 1
 
-hourList = list()
-
-for key in hourDict:
-    hourList.append((key, hourDict[key]))
-
-hourList.sort()
-
-for a, b in hourList:
-    print(a, b)
+letterList = list(letterDict.items())
+letterList.sort()
+print(letterList)
