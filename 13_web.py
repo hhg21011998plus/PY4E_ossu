@@ -60,21 +60,40 @@ import ssl
 
 # Autograder: Extracting Data from XML
 
-url = input("Enter url: ")
-if url != "http://py4e-data.dr-chuck.net/comments_1456361.xml":
-    url = "http://py4e-data.dr-chuck.net/comments_1456361.xml"
-    print("Url:", url)
-fhand = urllib.request.urlopen(url)
-fxml = ""
-for line in fhand:
-    fxml += line.decode()
+# url = input("Enter url: ")
+# if url != "http://py4e-data.dr-chuck.net/comments_1456361.xml":
+#     url = "http://py4e-data.dr-chuck.net/comments_1456361.xml"
+#     print("Url:", url)
+# fhand = urllib.request.urlopen(url)
+# fxml = ""
+# for line in fhand:
+#     fxml += line.decode()
+#
+# tree = ET.fromstring(fxml)
+# lst = tree.findall("comments/comment")
+# print("Count:", len(lst))
+# sum = 0
+#
+# for item in lst:
+#     count = int(item.find("count").text)
+#     sum += count
+# print(sum)
 
-tree = ET.fromstring(fxml)
-lst = tree.findall("comments/comment")
-print("Count:", len(lst))
+
+
+# Autograder: Extract Data from JSON
+
+url = input("Enter url: ")
+
+if url != "http://py4e-data.dr-chuck.net/comments_1456362.json":
+    url = "http://py4e-data.dr-chuck.net/comments_1456362.json"
+    print("Url:", url)
+
+fhand = urllib.request.urlopen(url)
+data = fhand.read().decode()
+js = json.loads(data)
 sum = 0
 
-for item in lst:
-    count = int(item.find("count").text)
-    sum += count
+for item in js["comments"]:
+    sum += int(item["count"])
 print(sum)
