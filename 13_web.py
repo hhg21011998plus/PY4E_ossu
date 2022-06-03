@@ -83,17 +83,48 @@ import ssl
 
 # Autograder: Extract Data from JSON
 
-url = input("Enter url: ")
+# url = input("Enter url: ")
+#
+# if url != "http://py4e-data.dr-chuck.net/comments_1456362.json":
+#     url = "http://py4e-data.dr-chuck.net/comments_1456362.json"
+#     print("Url:", url)
+#
+# fhand = urllib.request.urlopen(url) #return a <class 'http.client.HTTPResponse'>
+# # print(type(fhand))
+# data = fhand.read().decode() #return a <class 'str'>
+# # print(type(data))
+# js = json.loads(data) #return a <class 'dict'>
+# print(type(js))
+# sum = 0
+#
+# for item in js["comments"]:
+#     sum += int(item["count"])
+# print(sum)
 
-if url != "http://py4e-data.dr-chuck.net/comments_1456362.json":
-    url = "http://py4e-data.dr-chuck.net/comments_1456362.json"
-    print("Url:", url)
 
-fhand = urllib.request.urlopen(url)
-data = fhand.read().decode()
-js = json.loads(data)
-sum = 0
 
-for item in js["comments"]:
-    sum += int(item["count"])
-print(sum)
+# Autograder: Using the GeoJSON API
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+key = 42
+
+url = "http://py4e-data.dr-chuck.net/json?"
+
+address = input("Enter a address: ")
+
+param = dict()
+
+param["address"] = address
+param["key"] = key
+
+jsonURL = url + urllib.parse.urlencode(param)
+
+data = urllib.request.urlopen(jsonURL, context=ctx)
+dataString = data.read().decode()
+
+js = json.loads(dataString)
+print(js["results"][0]["place_id"])
