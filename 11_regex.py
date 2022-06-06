@@ -21,20 +21,35 @@ import re
 #
 # Extract the number from each of the lines using a regular expression and the findall() method.
 #  Compute the average of the numbers and print out the average as an integer.
-fname = input("Enter file: ")
+# fname = input("Enter file: ")
+#
+# try:
+#     fhand = open(fname)
+# except:
+#     print("Error file name!")
+#     exit()
+#
+# listX = list()
+# for line in fhand:
+#     line = line.strip()
+#     x = re.findall("^New\sRevision: ([0-9]*)", line)
+#     if len(x) > 0:
+#         for item in x:
+#             listX.append(int(item))
+# result = int(sum(listX)/len(listX))
+# print(result)
 
-try:
-    fhand = open(fname)
-except:
-    print("Error file name!")
-    exit()
 
-listX = list()
+
+# Autograder: Regular Expressions
+fhand = open("regex_sum_1456357.txt")
+sum = 0
+
 for line in fhand:
-    line = line.strip()
-    x = re.findall("^New\sRevision: ([0-9]*)", line)
-    if len(x) > 0:
-        for item in x:
-            listX.append(int(item))
-result = int(sum(listX)/len(listX))
-print(result)
+    # line = line.strip()
+    x = re.findall("[0-9]*", line)
+    for item in x:
+        if item != "":
+            sum += int(item)
+
+print(sum)
